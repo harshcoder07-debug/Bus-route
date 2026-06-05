@@ -1,0 +1,87 @@
+lib/
+│
+├── main.dart
+│
+├── core/
+│   ├── constants/
+│   │   ├── app_colors.dart
+│   │   ├── app_strings.dart
+│   │   └── firebase_constants.dart
+│   │
+│   ├── services/
+│   │   ├── firebase_service.dart
+│   │   └── navigation_service.dart
+│   │
+│   └── utils/
+│       ├── validators.dart
+│       └── helpers.dart
+│
+├── data/
+│   ├── models/
+│   │   ├── user_model.dart
+│   │   ├── bus_model.dart
+│   │   ├── route_model.dart
+│   │   └── timetable_model.dart
+│   │
+│   └── repositories/
+│       ├── auth_repository.dart
+│       ├── bus_repository.dart
+│       └── timetable_repository.dart
+│
+├── features/
+│   │
+│   ├── auth/
+│   │   ├── views/
+│   │   │   ├── login_screen.dart
+│   │   │   └── signup_screen.dart
+│   │   │
+│   │   ├── viewmodels/
+│   │   │   └── auth_viewmodel.dart
+│   │   │
+│   │   └── widgets/
+│   │       ├── auth_textfield.dart
+│   │       └── social_login_button.dart
+│   │
+│   ├── home/
+│   │   ├── views/
+│   │   │   └── home_screen.dart
+│   │   │
+│   │   ├── viewmodels/
+│   │   │   └── home_viewmodel.dart
+│   │   │
+│   │   └── widgets/
+│   │       └── route_card.dart
+│   │
+│   ├── routes/
+│   │   ├── views/
+│   │   │   ├── route_list_screen.dart
+│   │   │   └── route_detail_screen.dart
+│   │   │
+│   │   ├── viewmodels/
+│   │   │   └── route_viewmodel.dart
+│   │   │
+│   │   └── widgets/
+│   │       └── route_tile.dart
+│   │
+│   ├── timetable/
+│   │   ├── views/
+│   │   │   └── timetable_screen.dart
+│   │   │
+│   │   ├── viewmodels/
+│   │   │   └── timetable_viewmodel.dart
+│   │   │
+│   │   └── widgets/
+│   │       └── timetable_card.dart
+│   │
+│   └── profile/
+│       ├── views/
+│       │   └── profile_screen.dart
+│       │
+│       ├── viewmodels/
+│       │   └── profile_viewmodel.dart
+│       │
+│       └── widgets/
+│           └── profile_header.dart
+│
+└── providers/
+    └── provider_setup.dart
