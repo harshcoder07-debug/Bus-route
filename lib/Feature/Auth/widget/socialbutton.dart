@@ -9,33 +9,37 @@ class Socialbutton extends StatelessWidget {
     super.key,
     required this.buttontext,
     required this.buttoncolor,
-    required this.buttontextcolor, required this.ontap,
+    required this.buttontextcolor,
+    required this.ontap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 200,
-      decoration: BoxDecoration(
-        color: buttoncolor,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withValues(alpha: 0.50),
-            blurRadius: 8,
-            spreadRadius: 2,
-            offset: Offset(0, 4), // x, y
-          ),
-        ],
-      ),
-      child: Center(
-        child: Text(
-          buttontext,
-          style: TextStyle(
-            color: buttontextcolor,
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        height: 50,
+        width: 200,
+        decoration: BoxDecoration(
+          color: buttoncolor,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blue.withValues(alpha: 0.50),
+              blurRadius: 8,
+              spreadRadius: 2,
+              offset: Offset(0, 4), // x, y
+            ),
+          ],
+        ),
+        child: Center(
+          child: Text(
+            buttontext,
+            style: TextStyle(
+              color: buttontextcolor,
+              fontWeight: FontWeight.bold,
+              fontSize: 17,
+            ),
           ),
         ),
       ),

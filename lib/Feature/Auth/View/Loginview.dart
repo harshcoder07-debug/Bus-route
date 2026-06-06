@@ -1,15 +1,36 @@
+// ignore_for_file: unused_import
+
+import 'package:busapp/Core/routes/Approutes.dart';
+import 'package:busapp/Feature/Auth/View/Signupview.dart';
+import 'package:busapp/Feature/Auth/Viewmodel/AuthViewmodel.dart';
 import 'package:busapp/Feature/Auth/widget/Texinput.dart';
 import 'package:busapp/Feature/Auth/widget/othersignincard.dart';
 import 'package:busapp/Feature/Auth/widget/socialbutton.dart';
-import 'package:flutter/material.dart';
+import 'package:busapp/Feature/home/homeview.dart';
 
-class Loginview extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class Loginview extends StatefulWidget {
   const Loginview({super.key});
 
   @override
+  State<Loginview> createState() => _LoginviewState();
+}
+
+class _LoginviewState extends State<Loginview> {
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TextEditingController email = TextEditingController();
-    final TextEditingController password = TextEditingController();
+    final vm = context.watch<Authviewmodel>();
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
@@ -30,9 +51,16 @@ class Loginview extends StatelessWidget {
             children: [
               Text(
                 "Welcome Back",
-                style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 29,
+                  fontWeight: FontWeight.bold,
+                  color: const Color.fromARGB(255, 12, 48, 207),
+                ),
               ),
-              Text("Your journey through Punjab starts here"),
+              Text(
+                "Your journey through Punjab starts here",
+                style: TextStyle(fontSize: 14),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 19,
@@ -61,7 +89,7 @@ class Loginview extends StatelessWidget {
                       children: [
                         Texinput(
                           controller: email,
-                          rowtext: 'Enter  Eamil',
+                          rowtext: 'Enter  Email',
                           icon: Icon(Icons.email),
                           text: 'yourjhon@gmail.com',
                         ),
@@ -72,17 +100,47 @@ class Loginview extends StatelessWidget {
                           text: 'Password',
                         ),
                         SizedBox(height: 10),
-                        Socialbutton(
-                          buttontext: 'Login',
-                          buttoncolor: const Color.fromARGB(255, 28, 49, 235),
-                          buttontextcolor: const Color.fromARGB(
-                            255,
-                            255,
-                            255,
-                            255,
-                          ),
-                          ontap: () {},
-                        ),
+                        vm.loading
+                            ? const Center(child: CircularProgressIndicator())
+                            : Socialbutton(
+                                buttontext: 'Login',
+                                buttoncolor: const Color.fromARGB(
+                                  255,
+                                  28,
+                                  49,
+                                  235,
+                                ),
+                                buttontextcolor: Colors.white,
+                                ontap: () async {
+                                  try {
+                                    final success = await vm.login(
+                                      email: email.text.trim(),
+                                      password: password.text.trim(),
+                                    );
+
+                                    if (!mounted) return;
+
+                                    if (success) {
+                                      Navigator.pushNamed(
+                                        context,
+                                        Approutes.home,
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Login failed"),
+                                        ),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(e.toString())),
+                                    );
+                                  }
+                                },
+                              ),
                         SizedBox(height: 10),
                         Text("____________OR CONTINUE WITH________________"),
                         SizedBox(height: 10),
@@ -92,10 +150,16 @@ class Loginview extends StatelessWidget {
                             Othersignincard(
                               imagePath: 'asset/image/google.png',
                               logname: 'Google',
+                              otherlogintap: () {
+                                print("object");
+                              },
                             ),
                             Othersignincard(
                               imagePath: 'asset/image/apple.png',
                               logname: 'Apple',
+                              otherlogintap: () {
+                                print("2");
+                              },
                             ),
                           ],
                         ),
@@ -115,7 +179,10 @@ class Loginview extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signupview()),
+                        );
                       },
                       child: Text(
                         "Create An Account",
