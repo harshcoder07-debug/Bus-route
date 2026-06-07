@@ -2,11 +2,11 @@
 
 import 'package:busapp/Core/routes/Approutes.dart';
 import 'package:busapp/Feature/Auth/View/Signupview.dart';
-import 'package:busapp/Feature/Auth/Viewmodel/AuthViewmodel.dart';
 import 'package:busapp/Feature/Auth/widget/Texinput.dart';
 import 'package:busapp/Feature/Auth/widget/othersignincard.dart';
 import 'package:busapp/Feature/Auth/widget/socialbutton.dart';
 import 'package:busapp/Feature/home/homeview.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,22 +30,22 @@ class _LoginviewState extends State<Loginview> {
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<Authviewmodel>();
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 156, 190, 235),
-              Color.fromARGB(255, 231, 196, 143),
-            ],
+    
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromARGB(255, 156, 190, 235),
+                Color.fromARGB(255, 231, 196, 143),
+              ],
+            ),
           ),
-        ),
-        child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -100,9 +100,7 @@ class _LoginviewState extends State<Loginview> {
                           text: 'Password',
                         ),
                         SizedBox(height: 10),
-                        vm.loading
-                            ? const Center(child: CircularProgressIndicator())
-                            : Socialbutton(
+                         Socialbutton(
                                 buttontext: 'Login',
                                 buttoncolor: const Color.fromARGB(
                                   255,
@@ -112,26 +110,8 @@ class _LoginviewState extends State<Loginview> {
                                 ),
                                 buttontextcolor: Colors.white,
                                 ontap: () async {
-                                  try {
-                                    final success = await context
-                                        .read<Authviewmodel>()
-                                        .login(
-                                          email: email.text.trim(),
-                                          password: password.text.trim(),
-                                        );
+                                 
 
-                                    if (success) {
-                                      Navigator.pushNamed(
-                                        context,
-                                        Approutes.home,
-                                      );
-                                      print("Login Success = $success");
-                                    }
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(e.toString())),
-                                    );
-                                  }
                                 },
                               ),
                         SizedBox(height: 10),
