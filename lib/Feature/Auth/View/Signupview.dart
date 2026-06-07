@@ -1,7 +1,8 @@
+import 'package:busapp/Feature/Auth/Viewmodel/AuthViewmodel.dart';
 import 'package:busapp/Feature/Auth/widget/Texinput.dart';
-import 'package:busapp/Feature/Auth/widget/othersignincard.dart';
 import 'package:busapp/Feature/Auth/widget/socialbutton.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Signupview extends StatelessWidget {
   const Signupview({super.key});
@@ -70,30 +71,37 @@ class Signupview extends StatelessWidget {
                       buttontext: 'Sign Up',
                       buttoncolor: const Color.fromARGB(255, 28, 49, 235),
                       buttontextcolor: const Color.fromARGB(255, 255, 255, 255),
-                      ontap: () async {},
+                      ontap: () async {
+                        final authVm = Provider.of<Authviewmodel>(
+                          context,
+                          listen: false,
+                        );
+
+                        String? error = await authVm.signup(
+                          email: email.text,
+                          password: Password.text,
+                        );
+
+                        if (!context.mounted) return;
+
+                        if (error == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Account created successfully"),
+                            ),
+                          );
+
+                          Navigator.pushReplacementNamed(context, '/home');
+                        } else {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text(error)));
+                        }
+                      },
                     ),
                     SizedBox(height: 10),
-                    Text("____________OR CONTINUE WITH________________"),
+
                     SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Othersignincard(
-                          imagePath: 'asset/image/google.png',
-                          logname: 'Google',
-                          otherlogintap: () {
-                            print("object");
-                          },
-                        ),
-                        Othersignincard(
-                          imagePath: 'asset/image/apple.png',
-                          logname: 'Apple',
-                          otherlogintap: () {
-                            print("2");
-                          },
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),

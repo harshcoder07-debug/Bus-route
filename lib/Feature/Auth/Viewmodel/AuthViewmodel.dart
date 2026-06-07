@@ -22,9 +22,38 @@ class Authviewmodel extends ChangeNotifier {
       await repo.Login(email, password);
       return true;
     } catch (e) {
-      rethrow;
+      return false;
     } finally {
       setloading(false);
     }
+  }
+
+  Future<String?> signup({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      if (email.trim().isEmpty || password.trim().isEmpty) {
+        return "Email and Password are required";
+      }
+
+      if (password.length < 6) {
+        return "Password must be at least 6 characters";
+      }
+
+      setloading(true);
+
+      await repo.Signup(email, password);
+
+      return null; // Success
+    } catch (e) {
+      return e.toString();
+    } finally {
+      setloading(false);
+    }
+  }
+
+  Future<void> logout() async {
+    await repo.Logout();
   }
 }

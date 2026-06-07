@@ -8,6 +8,12 @@ class AuthService {
       password: password,
     );
   }
+   Future<UserCredential> signup(String email, String password) async {
+    return await _authentication.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
 
   Future<void> Logout() async {
     _authentication.signOut();

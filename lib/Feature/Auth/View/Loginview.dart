@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: use_build_context_synchronously, unused_import
 
 import 'package:busapp/Core/routes/Approutes.dart';
 import 'package:busapp/Feature/Auth/View/Signupview.dart';
@@ -113,26 +113,19 @@ class _LoginviewState extends State<Loginview> {
                                 buttontextcolor: Colors.white,
                                 ontap: () async {
                                   try {
-                                    final success = await vm.login(
-                                      email: email.text.trim(),
-                                      password: password.text.trim(),
-                                    );
-
-                                    if (!mounted) return;
+                                    final success = await context
+                                        .read<Authviewmodel>()
+                                        .login(
+                                          email: email.text.trim(),
+                                          password: password.text.trim(),
+                                        );
 
                                     if (success) {
                                       Navigator.pushNamed(
                                         context,
                                         Approutes.home,
                                       );
-                                    } else {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        const SnackBar(
-                                          content: Text("Login failed"),
-                                        ),
-                                      );
+                                      print("Login Success = $success");
                                     }
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(

@@ -6,6 +6,7 @@ import 'package:busapp/Core/routes/Approutes.dart';
 import 'package:busapp/Data/Repository/Authrepository.dart';
 import 'package:busapp/Feature/Auth/View/Loginview.dart';
 import 'package:busapp/Feature/Auth/Viewmodel/AuthViewmodel.dart';
+import 'package:busapp/Feature/Auth/widget/Authwarpper.dart';
 
 import 'package:busapp/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: Approutes.login,
+      home: Authwarpper(),
       onGenerateRoute: AppRouter.generateRoute,
       debugShowCheckedModeBanner: false,
     );

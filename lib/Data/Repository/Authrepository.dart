@@ -11,4 +11,8 @@ class Authrepository {
   Future<void> Logout() async {
     await _authService.Logout();
   }
+
+  Future<void> Signup(String email, String password) async {
+    await _authService.signup(email, password);
+  }
 }
