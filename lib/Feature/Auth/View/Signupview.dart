@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'package:busapp/Feature/Auth/Viewmodel/Auth_viewmodel.dart';
 import 'package:busapp/Feature/Auth/widget/Texinput.dart';
 import 'package:busapp/Feature/Auth/widget/socialbutton.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +14,13 @@ class Signupview extends StatefulWidget {
 }
 
 class _SignupviewState extends State<Signupview> {
-  final email = TextEditingController();
-  final password = TextEditingController();
+  final signemail = TextEditingController();
+  final signpassword = TextEditingController();
 
   @override
   void dispose() {
-    email.dispose();
-    password.dispose();
+    signemail.dispose();
+    signpassword.dispose();
     super.dispose();
   }
 
@@ -56,25 +57,62 @@ class _SignupviewState extends State<Signupview> {
                 child: Column(
                   children: [
                     Texinput(
-                      controller: email,
+                      controller: signemail,
                       rowtext: 'Enter Email',
                       icon: const Icon(Icons.email),
                       text: 'yourjhon@gmail.com',
                     ),
                     Texinput(
-                      controller: password,
+                      controller: signpassword,
                       icon: const Icon(Icons.password),
                       rowtext: 'Enter Password',
                       text: 'Password',
                     ),
 
                     const SizedBox(height: 10),
+                    Consumer<AuthViewmodel>(
+                      builder: (context, Uiload, _) {
+                        return Uiload.state.isloading
+                            ? const CircularProgressIndicator()
+                            : Socialbutton(
+                                buttontext: 'Sign Up',
+                                buttoncolor: const Color.fromARGB(
+                                  255,
+                                  28,
+                                  49,
+                                  235,
+                                ),
+                                buttontextcolor: Colors.white,
+                                ontap: () async {
+                                  final success = await context
+                                      .read<AuthViewmodel>()
+                                      .signup(
+                                        signemail.text.trim(),
+                                        signpassword.text.trim(),
+                                      );
 
-                    Socialbutton(
-                      buttontext: 'Sign Up',
-                      buttoncolor: const Color.fromARGB(255, 28, 49, 235),
-                      buttontextcolor: Colors.white,
-                      ontap: () async {},
+                                  if (!context.mounted) return;
+
+                                  if (success) {
+                                    Navigator.pop(
+                                      context,
+                                    ); // go back to login only
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          context
+                                                  .read<AuthViewmodel>()
+                                                  .state
+                                                  .error ??
+                                              "Signup failed",
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              );
+                      },
                     ),
                   ],
                 ),
@@ -83,9 +121,7 @@ class _SignupviewState extends State<Signupview> {
           ),
 
           TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/login');
-            },
+            onPressed: () {},
             child: const Text(
               "Already have an account? Login",
               style: TextStyle(fontWeight: FontWeight.bold),

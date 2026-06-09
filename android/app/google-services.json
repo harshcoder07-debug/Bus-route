@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "428945016380",
-    "project_id": "busroute-72f84",
-    "storage_bucket": "busroute-72f84.firebasestorage.app"
+    "project_number": "780710305917",
+    "project_id": "busapp-33bff",
+    "storage_bucket": "busapp-33bff.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:428945016380:android:bbb0a5fd74ceebb7e1a539",
+        "mobilesdk_app_id": "1:780710305917:android:6377a58b8ca1049f6f9114",
         "android_client_info": {
           "package_name": "com.example.busapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyASrHBDwMM97Gj0cqQ_-df1csQ0SU2RPRM"
+          "current_key": "AIzaSyCDfVMTzzkWHuLPK5WtkpS2rWqaW2o6RUA"
         }
       ],
       "services": {
