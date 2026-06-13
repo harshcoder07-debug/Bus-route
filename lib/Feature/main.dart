@@ -2,6 +2,8 @@ import 'package:busapp/Core/routes/Approutes.dart';
 import 'package:busapp/Data/Repository/repository.dart';
 import 'package:busapp/Feature/Auth/Viewmodel/Auth_viewmodel.dart';
 import 'package:busapp/Feature/Auth/widget/Authwrapper.dart';
+import 'package:busapp/Feature/home/Viewmodel/DestinationViewModel.dart';
+import 'package:busapp/Feature/home/Viewmodel/homeviewmodel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => DestinationViewModel()),
         ChangeNotifierProvider(create: (_) => AuthViewmodel(AuthRepository())),
+        ChangeNotifierProvider(create: (_) => Homeviewmodel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
