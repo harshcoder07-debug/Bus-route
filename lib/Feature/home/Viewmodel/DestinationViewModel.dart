@@ -1,4 +1,4 @@
-import 'package:busapp/Feature/home/Viewmodel/Destination_model.dart'
+import 'package:busapp/Feature/home/model/Destination_model.dart'
     show DestinationModel;
 import 'package:flutter/material.dart';
 

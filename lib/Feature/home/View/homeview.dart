@@ -1,4 +1,4 @@
-import 'package:busapp/Feature/Search/Search.dart';
+import 'package:busapp/Feature/Search/view/Bus_search_screen.dart';
 import 'package:busapp/Feature/TimeTable/Shedule.dart';
 import 'package:busapp/Feature/home/Viewmodel/DestinationViewModel.dart';
 import 'package:busapp/Feature/home/Viewmodel/homeviewmodel.dart';
@@ -6,8 +6,9 @@ import 'package:busapp/Feature/home/Widget/Appbar.dart';
 import 'package:busapp/Feature/home/Widget/Destination_card.dart';
 import 'package:busapp/Feature/home/Widget/chip.dart';
 import 'package:busapp/Feature/profile/profile.dart' show Profile;
-import 'package:busapp/Feature/routes/view/route_list_screen.dart';
+import 'package:busapp/Feature/routes/route.dart';
 import 'package:flutter/material.dart' hide Route;
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class Homeview extends StatefulWidget {
@@ -22,17 +23,18 @@ class _HomeviewState extends State<Homeview> {
   final titles = ["Explore", "Search", "Routes", "Destination", "Profile"];
   final List<Widget> pages = [
     HomescreenContent(),
+    const Bussearchscreen(),
     const Shedule(),
-    const Search(),
-    const RouteListScreen(),
+    const Routescreen(),
     const Profile(),
   ];
+  
 
   @override
   Widget build(BuildContext context) {
     final icons = [
       Icons.notifications,
-      Icons.calendar_month,
+      Icons.search,
       Icons.filter_list,
       Icons.map,
       Icons.settings,
@@ -58,17 +60,19 @@ class _HomeviewState extends State<Homeview> {
         ],
       ),
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 255, 255, 255),
           borderRadius: BorderRadius.circular(20),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadiusGeometry.circular(20),
+          borderRadius: BorderRadiusGeometry.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 2, bottom: 2),
+            padding: const EdgeInsets.only(top: 0),
             child: BottomNavigationBar(
-              backgroundColor: const Color.fromARGB(255, 2, 2, 2),
+              backgroundColor: const Color.fromARGB(255, 78, 76, 240),
               currentIndex: _selectedIndex,
               type: BottomNavigationBarType.fixed,
               selectedItemColor: Colors.white,
@@ -150,7 +154,7 @@ class _HomeviewState extends State<Homeview> {
                   ),
                 ),
                 BottomNavigationBarItem(
-                  label: "Explore",
+                  label: "Destination",
                   icon: Container(
                     decoration: BoxDecoration(shape: BoxShape.circle),
                     child: const Icon(Icons.map_outlined),

@@ -8,7 +8,6 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Profile")),
       body: ElevatedButton(
         onPressed: () {
           final vm = context.read<AuthViewmodel>().logout();

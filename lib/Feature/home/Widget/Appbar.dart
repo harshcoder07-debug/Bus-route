@@ -21,8 +21,12 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: backgroundColor,
-      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: backgroundColor,
+      ),
+
+      height: 70,
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
@@ -30,7 +34,11 @@ class CustomAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset("asset/image/bus.png", height: 24),
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: const Color.fromARGB(255, 87, 102, 235),
+                child: Image.asset("asset/image/bus.png", height: 24),
+              ),
               const SizedBox(width: 8),
               Text(
                 title,
@@ -42,11 +50,15 @@ class CustomAppBar extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(
-            onPressed: () {
-              icontap();
-            },
-            icon: Icon(iconlogo, color: Colors.white),
+          CircleAvatar(
+            radius: 20,
+            backgroundColor: const Color.fromARGB(255, 87, 102, 235),
+            child: IconButton(
+              onPressed: () {
+                icontap();
+              },
+              icon: Icon(iconlogo, color: Colors.white),
+            ),
           ),
         ],
       ),

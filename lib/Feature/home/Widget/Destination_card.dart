@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:busapp/Feature/home/Viewmodel/Destination_model.dart';
+import 'package:busapp/Feature/home/model/Destination_model.dart';
 
 class Route extends StatelessWidget {
   final DestinationModel destination;

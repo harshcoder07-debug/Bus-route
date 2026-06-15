@@ -23,7 +23,7 @@ class Homeviewmodel extends ChangeNotifier {
         break;
 
       case 1:
-        print("Schedule");
+        print("search");
         break;
 
       case 2:
