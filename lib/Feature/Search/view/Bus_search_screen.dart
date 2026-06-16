@@ -1,8 +1,8 @@
-// ignore_for_file: unnecessary_const
+// ignore_for_file: unused_import, unnecessary_const
 
 import 'package:busapp/Feature/Search/viewmodel/Bus Search_Viewmodel.dart';
-import 'package:busapp/Feature/Search/widget/popular_route_list.dart';
 import 'package:busapp/Feature/Search/widget/tripdetailcard.dart';
+import 'package:busapp/Feature/routes/popular_route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -49,25 +49,9 @@ class _BussearchscreenState extends State<Bussearchscreen> {
               padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Tripdetailcard(),
-
-                  Text(
-                    "Pupular Routes",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    "Most traveled destinations this week",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ],
+                children: [Tripdetailcard()],
               ),
             ),
-
-            const PopularRouteList(),
           ],
         ),
       ),

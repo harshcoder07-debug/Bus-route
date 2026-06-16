@@ -6,9 +6,8 @@ import 'package:busapp/Feature/home/Widget/Appbar.dart';
 import 'package:busapp/Feature/home/Widget/Destination_card.dart';
 import 'package:busapp/Feature/home/Widget/chip.dart';
 import 'package:busapp/Feature/profile/profile.dart' show Profile;
-import 'package:busapp/Feature/routes/route.dart';
+import 'package:busapp/Feature/routes/popular_route_list.dart';
 import 'package:flutter/material.dart' hide Route;
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class Homeview extends StatefulWidget {
@@ -24,11 +23,11 @@ class _HomeviewState extends State<Homeview> {
   final List<Widget> pages = [
     HomescreenContent(),
     const Bussearchscreen(),
+    const PopularRouteList(),
     const Shedule(),
-    const Routescreen(),
+
     const Profile(),
   ];
-  
 
   @override
   Widget build(BuildContext context) {

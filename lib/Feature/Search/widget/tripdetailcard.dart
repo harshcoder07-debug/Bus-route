@@ -1,4 +1,5 @@
 import 'package:busapp/Feature/Search/viewmodel/Bus%20Search_Viewmodel.dart';
+import 'package:busapp/Feature/Search/widget/Searchdelegate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,78 +23,40 @@ class Tripdetailcard extends StatelessWidget {
             SizedBox(height: 16),
 
             TextFormField(
-              initialValue: viewhome.fromcity,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              readOnly: true,
+              controller: TextEditingController(text: viewhome.fromcity),
+              onTap: () async {
+                final city = await showSearch<String>(
+                  context: context,
+                  delegate: CitySearchdelgate(viewhome.citylist),
+                );
+
+                if (city != null && city.isNotEmpty) {
+                  viewhome.setfromcity(city);
+                }
+              },
               decoration: InputDecoration(
-                labelText: "From",
-                hintText: "Enter departure city",
+                labelText: "Current City",
                 prefixIcon: const Icon(Icons.location_on, color: Colors.blue),
-
-                filled: true,
-                fillColor: Colors.blue.shade50,
-
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 18,
-                ),
-
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide.none,
-                ),
-
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(color: Colors.blue.shade100),
-                ),
-
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: Colors.blue, width: 2),
-                ),
-
-                labelStyle: const TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w600,
-                ),
               ),
             ),
             SizedBox(height: 10),
             TextFormField(
-              initialValue: viewhome.tocity,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              readOnly: true,
+              controller: TextEditingController(text: viewhome.tocity),
+              onTap: () async {
+                final city = await showSearch<String>(
+                  context: context,
+                  delegate: CitySearchdelgate(viewhome.citylist),
+                );
+
+                if (city != null && city.isNotEmpty) {
+                  viewhome.settocity(city);
+                }
+              },
               decoration: InputDecoration(
-                labelText: "ToCity",
-                hintText: "Enter Destination city",
+                labelText: "Destination",
                 prefixIcon: const Icon(Icons.route, color: Colors.blue),
-
-                filled: true,
-                fillColor: Colors.blue.shade50,
-
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 18,
-                ),
-
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide.none,
-                ),
-
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(color: Colors.blue.shade100),
-                ),
-
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: Colors.blue, width: 2),
-                ),
-
-                labelStyle: const TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.w600,
-                ),
               ),
             ),
             SizedBox(height: 10),
