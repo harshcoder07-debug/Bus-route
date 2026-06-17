@@ -1,0 +1,57 @@
+
+class CityLocation {
+  final double lat;
+  final double lng;
+
+  const CityLocation(this.lat, this.lng);
+}
+
+final Map<String, CityLocation> cityCoordinates = {
+  'Amritsar': const CityLocation(31.6340, 74.8723),
+  'Barnala': const CityLocation(30.3819, 75.5468),
+  'Bathinda': const CityLocation(30.2110, 74.9455),
+  'Faridkot': const CityLocation(30.6739, 74.7558),
+  'Fatehgarh Sahib': const CityLocation(30.6454, 76.3853),
+  'Fazilka': const CityLocation(30.4024, 74.0280),
+  'Ferozepur': const CityLocation(30.9331, 74.6225),
+  'Gurdaspur': const CityLocation(32.0414, 75.4031),
+  'Hoshiarpur': const CityLocation(31.5143, 75.9115),
+  'Jalandhar': const CityLocation(31.3260, 75.5762),
+  'Kapurthala': const CityLocation(31.3801, 75.3811),
+  'Ludhiana': const CityLocation(30.9010, 75.8573),
+  'Malerkotla': const CityLocation(30.5300, 75.8900),
+  'Mansa': const CityLocation(29.9880, 75.3920),
+  'Moga': const CityLocation(30.8165, 75.1717),
+  'Mohali': const CityLocation(30.7046, 76.7179),
+  'Muktsar': const CityLocation(30.4743, 74.5166),
+  'Nawanshahr': const CityLocation(31.1252, 76.1181),
+  'Pathankot': const CityLocation(32.2643, 75.6421),
+  'Patiala': const CityLocation(30.3398, 76.3869),
+  'Rupnagar': const CityLocation(30.9680, 76.5265),
+  'Sangrur': const CityLocation(30.2458, 75.8421),
+  'Tarn Taran': const CityLocation(31.4515, 74.9278),
+  'Chandigarh': const CityLocation(30.7333, 76.7794),
+  'Abohar': const CityLocation(30.1453, 74.1993),
+  'Batala': const CityLocation(31.8186, 75.2029),
+  'Khanna': const CityLocation(30.7054, 76.2219),
+  'Phagwara': const CityLocation(31.2240, 75.7708),
+  'Rajpura': const CityLocation(30.4781, 76.5928),
+  'Zirakpur': const CityLocation(30.6425, 76.8173),
+  'Samrala': const CityLocation(30.8369, 76.1935),
+  'Sunam': const CityLocation(30.1280, 75.8000),
+  'Dhuri': const CityLocation(30.3690, 75.8670),
+  'Kotkapura': const CityLocation(30.5819, 74.8329),
+  'Jagraon': const CityLocation(30.7878, 75.4739),
+  'Nakodar': const CityLocation(31.1257, 75.4739),
+  'Dasuya': const CityLocation(31.8168, 75.6536),
+  'Anandpur Sahib': const CityLocation(31.2395, 76.5027),
+  'Kharar': const CityLocation(30.7463, 76.6469),
+  'Morinda': const CityLocation(30.7901, 76.4989),
+  'Nangal': const CityLocation(31.3897, 76.3756),
+  'Malout': const CityLocation(30.1890, 74.4990),
+  'Budhlada': const CityLocation(29.9270, 75.5630),
+  'Lehragaga': const CityLocation(29.8910, 75.8050),
+  'Patti': const CityLocation(31.2800, 74.8600),
+  'Sultanpur Lodhi': const CityLocation(31.2150, 75.1960),
+  'Talwandi Sabo': const CityLocation(29.9840, 75.0830),
+};

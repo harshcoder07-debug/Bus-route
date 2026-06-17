@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:busapp/Core/Services/citycordinates.dart';
 import 'package:busapp/Feature/Search/model/Bus_route_model.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +17,10 @@ class Bussearchviewmodel extends ChangeNotifier {
   bool get isLoading => _isloading;
   List<BusRouteModel> _popularroutes = [];
   List<BusRouteModel> get popularRoutes => _popularroutes;
-List<String> citylist = [
+  List<BusRouteModel> _filterroute = [];
+  List<BusRouteModel> get filterroute => _filterroute;
+
+  List<String> citylist = [
     'Amritsar',
     'Barnala',
     'Bathinda',
@@ -64,6 +70,26 @@ List<String> citylist = [
     'Talwandi Sabo',
   ];
 
+  //distance calcualtion
+
+  double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+    const earthRadius = 6371; // km
+
+    final dLat = (lat2 - lat1) * pi / 180;
+    final dLon = (lon2 - lon1) * pi / 180;
+
+    final a =
+        sin(dLat / 2) * sin(dLat / 2) +
+        cos(lat1 * pi / 180) *
+            cos(lat2 * pi / 180) *
+            sin(dLon / 2) *
+            sin(dLon / 2);
+
+    final c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    return earthRadius * c;
+  }
+
   void updateCity(String city) {
     _tocity = city;
     notifyListeners();
@@ -89,65 +115,68 @@ List<String> citylist = [
     notifyListeners();
   }
 
-  // Fetch popular routes from data layer
   Future<void> popularroutelist() async {
     _isloading = true;
     notifyListeners();
 
     await Future.delayed(const Duration(seconds: 1));
 
-    _popularroutes = [
-      BusRouteModel(
-        fromcity: 'Amritsar',
-        tocity: 'Patiala',
-        startingprice: 399,
-        reviews: 4,
-        totalreviwews: 2.9,
-        frequency: '15 minutes',
-      ),
-      BusRouteModel(
-        fromcity: 'Patiala',
-        tocity: 'Sangrur',
-        startingprice: 700,
-        reviews: 3,
-        totalreviwews: 100,
-        frequency: '1 Hour',
-      ),
-      BusRouteModel(
-        fromcity: 'Jhlandhar',
-        tocity: 'chandigarh',
-        startingprice: 500,
-        reviews: 5,
-        totalreviwews: 4.9,
-        frequency: '35 minutes',
-      ),
-      BusRouteModel(
-        fromcity: 'Chandigarh',
-        tocity: 'Sangrur',
-        startingprice: 399,
-        reviews: 4,
-        totalreviwews: 3.76,
-        frequency: '3 Hours',
-      ),
-      BusRouteModel(
-        fromcity: 'Sangrur',
-        tocity: 'Patiala',
-        startingprice: 700,
-        reviews: 3,
-        totalreviwews: 1.00,
-        frequency: 'Weekly',
-      ),
-      BusRouteModel(
-        fromcity: 'Jhlandhar',
-        tocity: 'Chandigarh',
-        startingprice: 500,
-        reviews: 5,
-        totalreviwews: 4.00,
-        frequency: '45 minutes',
-      ),
-    ];
+    _popularroutes = [];
+    //pricning llogic
+    final cities = cityCoordinates.keys.toList();
 
+    for (final from in cities) {
+      for (final to in cities) {
+        if (from == to) continue;
+        final fromLoc = cityCoordinates[from]!;
+        final toLoc = cityCoordinates[to]!;
+
+        final distance = calculateDistance(
+          fromLoc.lat,
+          fromLoc.lng,
+          toLoc.lat,
+          toLoc.lng,
+        );
+        final price = (distance * 2).round();
+        _popularroutes.add(
+          BusRouteModel(
+            fromcity: from,
+            tocity: to,
+            startingprice: price,
+            reviews: 2,
+            totalreviwews: 100,
+            frequency: distance < 100
+                ? '15 min'
+                : distance < 200
+                ? '30 min'
+                : '1 hr',
+          ),
+        );
+      }
+    }
     _isloading = false;
+    notifyListeners();
+  }
+
+  void bussearch({
+    required String from,
+    required String to,
+    required String bustype,
+  }) {
+    if (from.isEmpty || to.isEmpty) {
+      _filterroute = [];
+      notifyListeners();
+      return;
+    }
+    _filterroute = _popularroutes.where((route) {
+      final matchFrom =
+          route.fromcity.trim().toLowerCase() == from.trim().toLowerCase();
+      final matchTo =
+          route.tocity.trim().toLowerCase() == to.trim().toLowerCase();
+
+      return matchFrom && matchTo;
+    }).toList();
+
     notifyListeners();
   }
 }

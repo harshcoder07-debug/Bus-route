@@ -85,20 +85,29 @@ class Tripdetailcard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            Container(
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.blue,
-              ),
-              child: Center(
-                child: Text(
-                  'Search buses',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+            InkWell(
+              onTap: () {
+                context.read<Bussearchviewmodel>().bussearch(
+                  from: viewhome.fromcity,
+                  to: viewhome.tocity,
+                  bustype: viewhome.selectbustype,
+                );
+              },
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.blue,
+                ),
+                child: Center(
+                  child: Text(
+                    'Search buses',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

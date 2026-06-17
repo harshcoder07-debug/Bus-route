@@ -25,9 +25,15 @@ class _BussearchscreenState extends State<Bussearchscreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewsearch = context.watch<Bussearchviewmodel>();
+
+    // Check if the user has selected cities to search yet
+    final hasSearched =
+        viewsearch.fromcity.isNotEmpty && viewsearch.tocity.isNotEmpty;
+
     return Scaffold(
       body: SingleChildScrollView(
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
@@ -43,15 +49,64 @@ class _BussearchscreenState extends State<Bussearchscreen> {
               ),
             ),
 
-            Center(child: Text("Reliable, punctual, and safe journeys daily.")),
+            const Center(
+              child: Text("Reliable, punctual, and safe journeys daily."),
+            ),
 
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Tripdetailcard()],
+                children: const [Tripdetailcard()],
               ),
             ),
+            const SizedBox(height: 10),
+
+            // Show nothing on initial load, show "No bus found" only after an active search empty return
+            if (viewsearch.filterroute.isEmpty && hasSearched)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(
+                    "No buses found for this route.",
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
+                ),
+              )
+            else if (viewsearch.filterroute.isNotEmpty)
+              ListView.builder(
+                itemCount: viewsearch.filterroute.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final searchview = viewsearch.filterroute[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 6,
+                    ),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.directions_bus,
+                        color: Colors.blue,
+                      ),
+                      title: Text(
+                        "${searchview.fromcity} ➔ ${searchview.tocity}",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text("Frequency: ${searchview.frequency}"),
+                      trailing: Text(
+                        "₹${searchview.startingprice}",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
           ],
         ),
       ),
