@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class BusRouteModel {
   final String fromcity;
   final String tocity;
@@ -7,7 +5,7 @@ class BusRouteModel {
   final int reviews;
   final double totalreviwews;
   final String frequency;
-  // final String Distace;
+  final String Bustype;
 
   BusRouteModel({
     // required this.Distace,
@@ -16,6 +14,6 @@ class BusRouteModel {
     required this.startingprice,
     required this.reviews,
     required this.totalreviwews,
-    required this.frequency,
+    required this.frequency, required this.Bustype,
   });
 }

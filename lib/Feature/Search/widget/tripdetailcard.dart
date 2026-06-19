@@ -61,23 +61,33 @@ class Tripdetailcard extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Row(
-              children: ["Sleeper", "AC", "Express"].map((type) {
+              children: ["Sleeper", "AC", "Express", "General"].map((type) {
                 final isSelected = viewhome.selectbustype == type;
 
                 return Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: ChoiceChip(
-                      label: Text(type),
-                      selected: isSelected,
-                      selectedColor: Colors.blue,
-                      backgroundColor: Colors.grey.shade200,
-                      labelStyle: TextStyle(
-                        color: isSelected ? Colors.white : Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
+                    child: SizedBox(
+                      width: 150,
+                      child: ChoiceChip(
+                        labelPadding: EdgeInsets.zero,
+                        label: Center(
+                          child: Text(
+                            type,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        selected: isSelected,
+                        selectedColor: Colors.blue,
+                        backgroundColor: Colors.grey.shade200,
+                        labelStyle: TextStyle(
+                          color: isSelected ? Colors.white : Colors.black,
+                        ),
+                        onSelected: (_) {
+                          viewhome.selectBusType(type);
+                        },
                       ),
-                      onSelected: (_) {
-                        viewhome.selectBusType(type);
-                      },
                     ),
                   ),
                 );

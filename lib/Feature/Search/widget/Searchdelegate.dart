@@ -40,9 +40,23 @@ class CitySearchdelgate extends SearchDelegate<String> {
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(suggestions[index]),
-          onTap: () => close(context, suggestions[index]),
+        return Padding(
+          padding: EdgeInsetsGeometry.all(6),
+          child: ListTile(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(10),
+            ),
+            leading: Icon(
+              Icons.location_city,
+              color: const Color.fromARGB(255, 247, 244, 244),
+            ),
+            tileColor: const Color.fromARGB(255, 118, 135, 233),
+            title: Text(
+              suggestions[index],
+              style: TextStyle(color: const Color.fromARGB(255, 17, 16, 16)),
+            ),
+            onTap: () => close(context, suggestions[index]),
+          ),
         );
       },
     );

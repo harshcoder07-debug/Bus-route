@@ -14,7 +14,7 @@ class PopularRouteList extends StatelessWidget {
       itemCount: viewHome.popularRoutes.length,
       separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        final route = viewHome.popularRoutes[index];
+        final route = viewHome.popularRoutes[5];
 
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 12),

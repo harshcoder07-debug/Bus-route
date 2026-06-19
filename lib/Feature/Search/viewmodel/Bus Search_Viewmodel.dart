@@ -97,6 +97,9 @@ class Bussearchviewmodel extends ChangeNotifier {
 
   void selectBusType(String type) {
     _busselecttype = type;
+
+    bussearch(from: _fromcity, to: _tocity, bustype: _busselecttype);
+
     notifyListeners();
   }
 
@@ -110,8 +113,9 @@ class Bussearchviewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setfromcity(String City) {
-    _fromcity = City;
+  void setfromcity(String city) {
+    if (_fromcity == city) return;
+    _fromcity = city;
     notifyListeners();
   }
 
@@ -122,15 +126,14 @@ class Bussearchviewmodel extends ChangeNotifier {
     await Future.delayed(const Duration(seconds: 1));
 
     _popularroutes = [];
-    //pricning llogic
+    //pricning logic
     final cities = cityCoordinates.keys.toList();
-
+    final bustype = ["Ac", "Sleeper", "Express", "General"];
     for (final from in cities) {
       for (final to in cities) {
         if (from == to) continue;
         final fromLoc = cityCoordinates[from]!;
         final toLoc = cityCoordinates[to]!;
-
         final distance = calculateDistance(
           fromLoc.lat,
           fromLoc.lng,
@@ -138,20 +141,36 @@ class Bussearchviewmodel extends ChangeNotifier {
           toLoc.lng,
         );
         final price = (distance * 2).round();
-        _popularroutes.add(
-          BusRouteModel(
-            fromcity: from,
-            tocity: to,
-            startingprice: price,
-            reviews: 2,
-            totalreviwews: 100,
-            frequency: distance < 100
-                ? '15 min'
-                : distance < 200
-                ? '30 min'
-                : '1 hr',
-          ),
-        );
+
+        //bus type selsct like Ac Exprees Ac
+        for (final type in bustype) {
+          int simpleprice = price;
+          if (type == 'Ac') {
+            simpleprice += 200;
+          }
+        
+          else if (type == "General") {
+            simpleprice -= 100;
+          } else if (type == "Sleeper") {
+            simpleprice += 100;
+          }
+
+          _popularroutes.add(
+            BusRouteModel(
+              fromcity: from,
+              tocity: to,
+              startingprice: simpleprice,
+              reviews: 2,
+              totalreviwews: 100,
+              frequency: distance < 100
+                  ? '15 min'
+                  : distance < 200
+                  ? '30 min'
+                  : '1 hr',
+              Bustype: type,
+            ),
+          );
+        }
       }
     }
     _isloading = false;
@@ -173,8 +192,9 @@ class Bussearchviewmodel extends ChangeNotifier {
           route.fromcity.trim().toLowerCase() == from.trim().toLowerCase();
       final matchTo =
           route.tocity.trim().toLowerCase() == to.trim().toLowerCase();
+      final matctbustype = route.Bustype.toLowerCase() == bustype.toLowerCase();
 
-      return matchFrom && matchTo;
+      return matchFrom && matchTo && matctbustype;
     }).toList();
 
     notifyListeners();
