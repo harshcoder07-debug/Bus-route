@@ -1,4 +1,5 @@
 import 'package:busapp/Data/Repository/repository.dart';
+import 'package:busapp/Feature/Auth/model/AuthState.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthViewmodel extends ChangeNotifier {
@@ -59,11 +60,5 @@ class AuthViewmodel extends ChangeNotifier {
   }
 }
 
-class Authstate {
-   final bool isloading;
-  final String? error;
-   Authstate({ this.isloading =false, this.error});
-  Authstate copyWith({bool? isLoading, String? error}) {
-    return Authstate(isloading: isLoading ?? isloading, error: error);
-  }
-}
+
+

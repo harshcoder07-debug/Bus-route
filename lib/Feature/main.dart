@@ -2,6 +2,7 @@ import 'package:busapp/Core/routes/Approutes.dart';
 import 'package:busapp/Data/Repository/repository.dart';
 import 'package:busapp/Feature/Auth/Viewmodel/Auth_viewmodel.dart';
 import 'package:busapp/Feature/Auth/widget/Authwrapper.dart';
+import 'package:busapp/Feature/Provider/Providersetup.dart';
 import 'package:busapp/Feature/Search/viewmodel/Bus%20Search_Viewmodel.dart';
 import 'package:busapp/Feature/home/Viewmodel/DestinationViewModel.dart';
 import 'package:busapp/Feature/home/Viewmodel/homeviewmodel.dart';
@@ -27,12 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => DestinationViewModel()),
-        ChangeNotifierProvider(create: (_) => AuthViewmodel(AuthRepository())),
-        ChangeNotifierProvider(create: (_) => Homeviewmodel()),
-        ChangeNotifierProvider(create: (_) => Bussearchviewmodel()),
-      ],
+      providers: buildProviders(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: AppRoutes.routes,
